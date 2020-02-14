@@ -1,0 +1,64 @@
+================================== Multiple SSH Key setup =====================================
+ssh-keygen -t rsa -b 4096 -C "work-mail"    -> work and its .pub file in ~/.ssh/ without any passphrase
+ssh-keygen -t rsa -b 4096 -C "my-github-mail"  -> danyayush7 and its .pub file in ~/.ssh/  without any passphrase
+
+vi ~/.ssh/config  with :
+# Personal account
+Host github.com-danyayush7
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/danyayush7
+
+# Work account 
+Host github.com-work
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/work
+
+ssh-add -D
+
+eval "$(ssh-agent -s)"
+
+ssh-add -K ~/.ssh/danyayush7   (private key here)
+ssh-add -K ~/.ssh/work
+
+ssh-add -l
+
+Add danyayush7.pub and work.pub contents with suitable title in their respective github a/c ssh keys section
+
+Example:
+ssh link -> git@<Host>:<Github Account of organization>/<repo_name>.git
+Eg:         git@github.com-work:Guavus/jio-customer360-ui.git 
+            git clone git@github.com-danyayush7:danyayush7/Data-Preprocessing.git
+
+===================================== How to make existing repo host on git ===============================
+git init 
+.gitignore file  to ignore directories and files
+git add .
+git status 
+git commit .
+git status
+Create new repo at github.com
+git remote add origin <ssh link of newly created github repo as per examples >
+optional: git remote remove origin
+git pull (before pushing)
+git push origin branch
+
+To clone github repo : git clone <ssh link of github repo as per examples>
+
+
+=============================== Other useful commands ============================
+git log (to see commit history)
+
+git checkout -b <branchname>
+git checkout <branchname>
+
+git branch 
+git branch -a (to get all branches of github repo)
+git branch -d <branchname>
+
+git diff <sourcebranch> <targetbranch>
+
+
+
+
